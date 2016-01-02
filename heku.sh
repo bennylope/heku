@@ -172,18 +172,6 @@ case "$2" in
     heroku run python ${MANAGEPATH} "${@:3}" --app=${APPNAME}
     exit
     ;;
-  fork)
-    echo "This command is deprecated"
-    exit
-    ;;
-    #FEATURE_BRANCH=$(git symbolic-ref --short HEAD)
-    #FEATURE_CHECKSUM=$(cksum <<< $(git rev-parse --abbrev-ref HEAD) | cut -f 1 -d ' ')
-    #FORKTO="$PREFIX$FEATURE_CHECKSUM"
-    #heroku fork --from $APPNAME --to $FORKTO
-    #git remote add $FEATURE_CHECKSUM "git@heroku.com:$FORKTO.git"
-    #git push $FEATURE_CHECKSUM $FEATURE_BRANCH:master
-    #exit
-    #;;
 esac
 
 printf "\nExecuting in the $1 environment\n"
