@@ -147,6 +147,21 @@ case "$2" in
   apps)
     exit
     ;;
+  destroy)
+    if [ -z "$FEATURE_BRANCH" ]; then
+      echo "Sorry, I can only destroy feature deploys"
+    else
+      echo $FEATURE_BRANCH
+      echo "Do you want to irrevocably destroy the '$APPNAME' app?"
+        select yn in "Yes" "No"; do
+        case $yn in
+            Yes ) heroku apps:destroy --app $APPNAME; break;;
+            No ) exit;;
+        esac
+      done
+    fi
+    exit
+    ;;
   deploy)
     git push ${REMOTE_NAME} $DEPLOY_BRANCH:master
     heroku run python ${MANAGEPATH} syncdb --noinput --app=${APPNAME}
