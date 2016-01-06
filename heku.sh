@@ -62,12 +62,21 @@ STAGING_REMOTE=`echo $CONFIG_JSON | jq -r .ENVS.STAGING.REMOTE`
 PRODUCTION_REMOTE=`echo $CONFIG_JSON | jq -r .ENVS.PRODUCTION.REMOTE`
 
 
+########################################################
+# Set the environment or perform a top-level action
+
 case "$1" in
   install)
     INSTALL_LOCATION="/usr/local/bin/heku"
-    ln -s $PWD/heku.sh $INSTALL_LOCATION >> /dev/null
+    cp $PWD/heku.sh $INSTALL_LOCATION >> /dev/null
     PATH_TO_SCRIPT=$(cd ${0%/*} && echo $PWD/${0##*/})
     echo "Linked $PATH_TO_SCRIPT to $INSTALL_LOCATION"
+    exit
+    ;;
+  uninstall)
+    INSTALL_LOCATION="/usr/local/bin/heku"
+    rm $INSTALL_LOCATION >> /dev/null
+    echo "Removed $INSTALL_LOCATION"
     exit
     ;;
   dev)
@@ -92,6 +101,7 @@ case "$1" in
     APPNAME="$HEROKU_APP_PREFIX-${FEATURE_BRANCH//\//-}"
     REMOTE_NAME=$APPNAME
     if ! git remote -v | grep $REMOTE_NAME >> /dev/null; then
+        # TODO separate checking app existence vs. remote existence
         echo "Forking from $DEV_APP_NAME to $APPNAME..."
         heroku fork --from $DEV_APP_NAME --to $APPNAME
         git remote add $REMOTE_NAME "git@heroku.com:$APPNAME.git"
@@ -108,7 +118,7 @@ case "$1" in
       Y)
         ;;
       *)
-        echo "Not promoting to production"
+        echo "Aborting"
         exit
         ;;
     esac
@@ -143,6 +153,10 @@ case "$1" in
     ;;
 esac
 
+
+########################################################
+# Environment specific actions
+
 case "$2" in
   apps)
     exit
@@ -173,6 +187,10 @@ case "$2" in
     exit
     ;;
 esac
+
+
+########################################################
+# Environment specific actions with Heroku toolbelt commands
 
 printf "\nExecuting in the $1 environment\n"
 printf "heroku ${@:2} --app=$APPNAME\n\n"
