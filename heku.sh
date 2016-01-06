@@ -49,8 +49,8 @@ fi
 
 
 WORKING_DIR="`pwd`"
-CONFIG_JSON=`cat $WORKING_DIR/.heku.json`
-MANAGEPATH=`echo $CONFIG_JSON | jq -r .DJ_MANAGE_PATH`
+CONFIG_JSON=`cat $WORKING_DIR/heku.json`
+MANAGEPATH=`echo $CONFIG_JSON | jq -r .APP_MANAGE_PATH`
 HEROKU_APP_PREFIX=`echo $CONFIG_JSON | jq -r .HEROKU_APP_PREFIX`
 
 DEV_APP_NAME=`echo $CONFIG_JSON | jq -r .ENVS.DEV.APP`
@@ -182,7 +182,7 @@ case "$2" in
     heroku run python ${MANAGEPATH} migrate --app=${APPNAME}
     exit
     ;;
-  dj)
+  cmd|dj)
     heroku run python ${MANAGEPATH} "${@:3}" --app=${APPNAME}
     exit
     ;;
