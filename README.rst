@@ -4,8 +4,10 @@ Heku
 
 A tool for working with multiple [He]ro[ku] environments.
 
-Held:
+Why?
 
+- You should have multiple environments to handle production code, staging
+  code, and features that are under development but require review
 - Remembering and typing app names for specific application environments is
   annoying and error prone
 - Developers need to be able to move things from environment to environment
@@ -37,7 +39,6 @@ Usage
 For most purposes, heku just knows which of your Heroku apps refer to named
 environments and lets you forget the `--app myapp-name-dev` stuff.
 
-
 It knows a few useful commands::
 
     heku promote
@@ -47,6 +48,23 @@ Otherwise just wraps the Heroku toolbelt with the app name included::
 
     heku staging config:set ENV=staging
 
+Feature deploys
+---------------
+
+heku also lets you deploy arbitrary Git branches to Heroku::
+
+    heku feature deploy
+
+And then work with those apps::
+
+    heku feature config
+    heku feature cmd shell_plus
+
+Feature GOTCHAs
+---------------
+
+- Heroku deployments are Git-based which means if you change the history of
+  your feature branch (rebasing) you will have a bad time
 
 Configuration
 =============
