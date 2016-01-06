@@ -1,0 +1,54 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "HEKU" "1" "January 2016" "" ""
+.
+.SH "NAME"
+\fBheku\fR \- manage multiple Heroku environments
+.
+.SH "SYNOPSIS"
+\fBheku\fR \fIenvironment\fR [command]
+.
+.SH "DESCRIPTION"
+A tool for working with multiple [He]ro[ku] environments\. heku lets you work with multiple named environments by referring to their environment name, e\.g\. staging, rather than Heroku app name\. It also allows for easily managing ephemeral feature deploys\.
+.
+.SH "PRIMARY COMMANDS"
+.
+.TP
+\fBdev\fR \fIsecondary\fR
+Target the development environment\.
+.
+.TP
+\fBstaging\fR \fIsecondary\fR
+Target the staging environment\.
+.
+.TP
+\fBproduction\fR \fIsecondary\fR
+Target the staging environment\.
+.
+.TP
+\fBfeature\fR \fIsecondary\fR
+Target a feature environment\. This will identify a feature app name based on the current Git branch\. If the remote does not exist it will create a new Heroku app by first \fBforking the dev environment\fR\.
+.
+.TP
+\fBpromote\fR
+Prompt for verification and then promote the app version in the staging environment to the production environment\.
+.
+.SH "ENV\-TARGETTED COMMANDS"
+.
+.IP "\(bu" 4
+\fBdeploy\fR: Pushes the designated branch to the Git remote and executes follow up commands\.
+.
+.IP "\(bu" 4
+\fBcmd\fR \fIcommand\fR [args] Runs the given \fIcommand\fR with [args] as an application CLI command (e\.g\. Django management command)
+.
+.IP "\(bu" 4
+\fBdestroy\fR: Destroys the feature environment (only works with the \fIfeature\fR primary command)\.
+.
+.IP "" 0
+.
+.SH "CONFIGURATION"
+See the README for full documentation on project configuration\.
+.
+.SH "AUTHORS"
+Ben Lopatin

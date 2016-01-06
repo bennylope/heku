@@ -61,21 +61,24 @@ DEV_REMOTE=`echo $CONFIG_JSON | jq -r .ENVS.DEV.REMOTE`
 STAGING_REMOTE=`echo $CONFIG_JSON | jq -r .ENVS.STAGING.REMOTE`
 PRODUCTION_REMOTE=`echo $CONFIG_JSON | jq -r .ENVS.PRODUCTION.REMOTE`
 
+INSTALL_LOCATION="/usr/local/bin/heku"
+MAN_LOCATION="/usr/local/share/man/man1"
 
 ########################################################
 # Set the environment or perform a top-level action
 
 case "$1" in
   install)
-    INSTALL_LOCATION="/usr/local/bin/heku"
     cp $PWD/heku.sh $INSTALL_LOCATION >> /dev/null
+    cp "$PWD/man/heku.1" "$MAN_LOCATION/heku.1"
+    gzip "$MAN_LOCATION/heku.1"
     PATH_TO_SCRIPT=$(cd ${0%/*} && echo $PWD/${0##*/})
     echo "Linked $PATH_TO_SCRIPT to $INSTALL_LOCATION"
     exit
     ;;
   uninstall)
-    INSTALL_LOCATION="/usr/local/bin/heku"
     rm $INSTALL_LOCATION >> /dev/null
+    rm "$MAN_LOCATION/heku.1"
     echo "Removed $INSTALL_LOCATION"
     exit
     ;;

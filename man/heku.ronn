@@ -1,0 +1,49 @@
+heku(1) -- manage multiple Heroku environments
+==============================================
+
+## SYNOPSIS
+
+`heku` <environment> [command]
+
+## DESCRIPTION
+
+A tool for working with multiple [He]ro[ku] environments. heku lets you
+work with multiple named environments by referring to their environment
+name, e.g. staging, rather than Heroku app name. It also allows for
+easily managing ephemeral feature deploys.
+
+## PRIMARY COMMANDS
+
+* `dev` <secondary>:
+    Target the development environment.
+* `staging` <secondary>:
+    Target the staging environment.
+* `production` <secondary>:
+    Target the staging environment.
+* `feature` <secondary>:
+    Target a feature environment. This will identify a feature app name
+    based on the current Git branch. If the remote does not exist it
+    will create a new Heroku app by first **forking the dev environment**.
+* `promote`:
+    Prompt for verification and then promote the app version in the
+    staging environment to the production environment.
+
+## ENV-TARGETTED COMMANDS
+
+* `deploy`:
+    Pushes the designated branch to the Git remote and executes follow
+    up commands.
+* `cmd` <command> [args]
+    Runs the given <command> with [args] as an application CLI command
+    (e.g. Django management command)
+* `destroy`:
+    Destroys the feature environment (only works with the <feature>
+    primary command).
+
+## CONFIGURATION
+
+See the README for full documentation on project configuration.
+
+## AUTHORS
+
+Ben Lopatin
