@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Copyright 2015 Ben Lopatin
-# This software may not be redistributed or relicensed without the express
-# permission of the author.
+# This software may not be redistributed or relicensed without express
+# permission.
 
 # This script controls the app environment for Heroku commands
 #
