@@ -47,9 +47,17 @@ if ! type "jq" > /dev/null 2>&1; then
     exit
 fi
 
+WORKING_DIR="`pwd`"
+
+PROJECT_ROOT=$(pwd -P 2>/dev/null || command pwd)
+while [ ! -e "$PROJECT_ROOT/heku.json" ]; do
+    PROJECT_ROOT=${PROJECT_ROOT%/*}
+    if [ "$PROJECT_ROOT" = "" ]; then break; fi
+done
+
 
 WORKING_DIR="`pwd`"
-CONFIG_JSON=`cat $WORKING_DIR/heku.json`
+CONFIG_JSON=`cat $PROJECT_ROOT/heku.json`
 MANAGEPATH=`echo $CONFIG_JSON | jq -r .APP_MANAGE_PATH`
 HEROKU_APP_PREFIX=`echo $CONFIG_JSON | jq -r .HEROKU_APP_PREFIX`
 
@@ -63,6 +71,7 @@ PRODUCTION_REMOTE=`echo $CONFIG_JSON | jq -r .ENVS.PRODUCTION.REMOTE`
 
 INSTALL_LOCATION="/usr/local/bin/heku"
 MAN_LOCATION="/usr/local/share/man/man1"
+
 
 ########################################################
 # Set the environment or perform a top-level action
