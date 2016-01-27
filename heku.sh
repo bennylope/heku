@@ -179,6 +179,10 @@ case "$2" in
     fi
     exit
     ;;
+  push)
+    git push ${REMOTE_NAME} $DEPLOY_BRANCH:master
+    exit
+    ;;
   deploy)
     git push ${REMOTE_NAME} $DEPLOY_BRANCH:master
     heroku run python ${MANAGEPATH} syncdb --noinput --app=${APPNAME}
