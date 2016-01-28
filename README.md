@@ -1,6 +1,4 @@
-====
-Heku
-====
+# Heku
 
 A tool for working with multiple [He]ro[ku] environments.
 
@@ -13,10 +11,11 @@ Why?
 - Developers need to be able to move things from environment to environment
 - Developers and clients need to be able to see features in-development
 
-Install
-=======
+Note that this is currently Django specific.
 
-Execute the script with the `install` command.::
+## Install
+
+Execute the script with the `install` command.
 
     ./heku.sh install
 
@@ -25,31 +24,27 @@ only your `PATH`. From this point on you can use the `heku` command by itself.
 
 If you do not have `[jq](https://stedolan.github.io/jq/)` installed heku will
 let you know and will not work until it is installed. On Mac OS the easiest way
-to install jq is with [Homebrew](http://brew.sh/)::
+to install jq is with [Homebrew](http://brew.sh/):
 
     brew install jq
 
-Usage
-=====
-
-::
+## Usage
 
     heku <environment> <action>
 
 For most purposes, heku just knows which of your Heroku apps refer to named
 environments and lets you forget the `--app myapp-name-dev` stuff.
 
-It knows a few useful commands::
+It knows a few useful commands:
 
     heku promote
     heku dj shell_plus
 
-Otherwise just wraps the Heroku toolbelt with the app name included::
+Otherwise just wraps the Heroku toolbelt with the app name included:
 
     heku staging config:set ENV=staging
 
-Feature deploys
----------------
+### Feature deploys
 
 heku also lets you deploy arbitrary Git branches to Heroku::
 
@@ -60,17 +55,15 @@ And then work with those apps::
     heku feature config
     heku feature cmd shell_plus
 
-Feature GOTCHAs
----------------
+### Feature GOTCHAs
 
 - Heroku deployments are Git-based which means if you change the history of
   your feature branch (rebasing) you will have a bad time
 
-Configuration
-=============
+## Configuration
 
 You must configure the base environment names, remotes, and app prefix in a
-JSON file named `heku.json` in the root of your project.::
+JSON file named `heku.json` in the root of your project:
 
     {
       "HEROKU_APP_PREFIX": "myapp-dev",
@@ -91,10 +84,9 @@ JSON file named `heku.json` in the root of your project.::
       }
     }
 
-Uninstall
-=========
+## Uninstall
 
-heku can uninstall itself::
+heku can uninstall itself:
 
     heku uninstall
 
