@@ -22,7 +22,7 @@ Execute the script with the `install` command.
 This will copy the script to your `/usr/local/bin` directory which should be
 only your `PATH`. From this point on you can use the `heku` command by itself.
 
-If you do not have `[jq](https://stedolan.github.io/jq/)` installed heku will
+If you do not have [`jq`](https://stedolan.github.io/jq/) installed heku will
 let you know and will not work until it is installed. On Mac OS the easiest way
 to install jq is with [Homebrew](http://brew.sh/):
 
